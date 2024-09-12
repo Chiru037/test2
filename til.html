@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* ナビゲーションバーのスタイル */
+    .navbar {
+      background-color: #333;
+      overflow: hidden;
+    }
+    
+    .navbar a {
+      float: left;
+      display: block;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+    }
+    
+    .navbar a:hover {
+      background-color: #ffffff;
+      color: black;
+    }
+/* Homeを緑にする。 */    
+    .navbar a.active {
+      background-color: #4CAF50;
+      color: white;
+    }
+    
+    .navbar .right-side {
+      float: right;
+    }
+    
+    .navbar .right-side img {
+      height: 24px;
+      margin: 0 5px;
+      vertical-align: middle;
+    }
+    
+    /* ドロップダウンメニューのスタイル */
+    .dropdown {
+      float: left;
+      overflow: hidden;
+    }
+    
+    .dropdown .dropbtn {
+      font-size: 17px;
+      border: none;
+      outline: none;
+      color: #f2f2f2;
+      background-color: inherit;
+      margin: 0;
+      padding: 14px 16px;
+      cursor: pointer;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    
+    .dropdown-content a {
+      float: none;
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+    }
+    
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+    
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    
+    /* ヒーローセクションのスタイル */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+    }
+
+    /* welcome to tilnetwork の背景の黒 */
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 40px;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    
+    .hero-content h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    
+    .hero-content p {
+      font-size: 24px;
+      margin-bottom: 40px;
+    }
+    
+    .hero-content a {
+      display: inline-block;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      font-size: 20px;
+      border-radius: 4px;
+    }
+    
+    /* スライドショーのスタイル */
+    .slideshow-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    .slideshow-container .mySlides {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .slideshow-container .mySlides img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    /* お知らせセクションのスタイル */
+    .announcement-section {
+      padding: 40px;
+      background-color: #f9f9f9;
+    }
+    
+    .announcement-section h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+    
+    .announcement-section p {
+      font-size: 18px;
+      margin-bottom: 40px;
+    }
+    
+    /* コメントセクションのスタイル */
+    .comment-section {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 4px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .comment-section h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    
+    .comment-section textarea {
+      width: 100%;
+      height: 100px;
+      padding: 10px;
+      margin-bottom: 10px;
+      resize: vertical;
+      margin-left: -10px; /* マージンを左に10px移動 */
+    }
+
+
+    .centered-text {
+      text-align: center;
+      margin-top: 50px; /* 適切なマージンを設定してください */
+      font-size: 24px; /* 適切なフォントサイズを設定してください */
+    }
+
+    
+    .comment-section button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #athletics-container {
+        display: none;
+      }    
+    #athletics-taselectbutton {
+      display: none;
+    }      
+
+    /* 追加したスタイル */
+    @media screen and (max-width: 600px) {
+      .navbar a {
+        float: none;
+        display: block;
+        text-align: left;
+      }
+      
+      .navbar .right-side {
+        float: none;
+        text-align: right;
+      }
+      
+      .hero-content {
+        padding: 20px;
+      }
+      
+      .hero-content h1 {
+        font-size: 32px;
+      }
+      
+      .hero-content p {
+        font-size: 18px;
+      }
+
+
+
+      
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <a class="active" href="#home" id="home-link" onclick="ShowHome()">ホーム</a>
+    <a href="#news" id="news-link">お知らせ</a>
+    <a href="#contact" id="contact-link">お問い合わせ</a>
+    <a href="#timeattackdata" id="timeattackdata-link" onclick="showTimeAttackText()">タイムアタックリスト</a>
+    <a href="#clearlist" id="clearlist-link">クリア者リスト</a>
+  
+    <div class="right-side">
+      <div class="dropdown">
+        <img src="language.png" alt="Language" class="dropbtn">
+        <div class="dropdown-content">
+          <a href="#" onclick="changeLanguage('ja')">
+            <img src="japanese.png" alt="Japanese" class="language-icon">
+            日本語
+          </a>
+          <a href="#" onclick="changeLanguage('en')">
+            <img src="english.png" alt="English" class="language-icon">
+            English
+          </a>
+          <a href="#" onclick="changeLanguage('ko')">
+            <img src="korea.png" alt="Korean" class="language-icon">
+            한국어
+          </a>
+          <a href="#" onclick="changeLanguage('zh')">
+            <img src="chinese.png" alt="Chinese" class="language-icon">
+            中文
+          </a>
+        </div>
+      </div>
+      <a href="https://www.youtube.com" target="_blank"><img src="youtube.png" alt="YouTube"></a>
+      <a href="https://twitter.com/TIL_Network" target="_blank"><img src="twitter.png" alt="Twitter" style="height: 28px;"></a>
+      <a href="https://discord.gg/your-discord-invite-link" target="_blank"><img src="discord.png" alt="Discord" style="height: 28px;"></a>
+    </div>
+
+
+
+
+<!--                                                           --> 
+<!--                                                           --> 
+<!--                   ドロップダウンメニュー                    -->
+<!--                                                           -->
+<!--                                                           -->    
+
+  <!-- ドロップダウンメニューCSS -->
+  <style>
+    #athletics-container {
+      display: none;
+      position: absolute;
+      border: 1px solid #ccc;
+      max-height: 150px;
+      overflow-y: auto;
+      z-index: 1;
+    }
+    .athletic-item {
+      padding: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+    #searchInput {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+  </style>
+<!-- HTMLドロップダウンメニュー -->
+  </div>
+  <button id="athletics-taselectbutton" onclick="toggletaselectAthletics()">アスレチック選択</button>
+  <div id="athletics-container">
+    <input type="text" id="searchInput" placeholder="検索">
+    <ul id="athletics-list">
+      <li class="athletic-list"></li>
+
+      
+    </ul>
+  </div>
+
+
+ 
+
+
+<!-- ドロップダウンメニューScript -->
+  <script>
+    var athleticsContainer = document.getElementById('athletics-container');
+    var searchInput = document.getElementById('searchInput');
+    var athleticItems = document.querySelectorAll('.athletic-item');
+
+    function toggletaselectAthletics() {
+      if (athleticsContainer.style.display === 'none') {
+        athleticsContainer.style.display = 'block';
+      } else {
+        athleticsContainer.style.display = 'none';
+        // アスレチック項目を全て表示する
+        athleticItems.forEach(function(item) {
+          item.style.display = 'block';
+        });
+      }
+    }
+
+    // 検索機能の追加
+    searchInput.addEventListener('input', function() {
+      var searchValue = this.value.toLowerCase();
+
+      athleticItems.forEach(function(item) {
+        var itemText = item.textContent.toLowerCase();
+        if (itemText.indexOf(searchValue) > -1) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      athleticsContainer.style.display = 'block';
+    });
+
+    // ドロップダウンメニューがクリックされたら検索欄をクリア
+    document.getElementById('athletics-taselectbutton').addEventListener('click', function() {
+      searchInput.value = '';
+      // アスレチック項目を全て表示する
+      athleticItems.forEach(function(item) {
+        item.style.display = 'block';
+      });
+    });
+  </script>
+
+
+
+  <section class="hero" id="hero-section">
+    <div class="hero-content">
+      <h1 id="welcome-heading">ようこそTILNetworkへ</h1>
+      <p id="welcome-text">TILNetworkはマインクラフト1.8.9のアスレチックサーバーです。</p>
+      <a href="#about" id="details-link" onclick="toggleDetails()">詳細</a>
+    </div>
+    <div class="slideshow-container">
+      <div class="mySlides fade">
+        <img src="slide1.png" alt="Slide 1">
+      </div>
+      <div class="mySlides fade">
+        <img src="slide2.png" alt="Slide 2">
+      </div>
+      <div class="mySlides fade">
+        <img src="slide3.png" alt="Slide 3">
+      </div>
+    </div>
+  </section>
+
+  <div class="comment-section">
+    <h3>問い合わせ</h3>
+    <form id="contact-form">
+      <textarea id="message" placeholder="メッセージを入力してください"></textarea>
+      <button type="submit">送信</button>
+    </form>
+  </div>
+
+
+
+
+
+  <div class="output" id="output-text"></div>
+
+  <script>
+    // フォーム問い合わせのDiscord 送信 
+  document.getElementById("contact-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+    
+    
+    const message = document.getElementById("message").value;
+    
+    // 現在の日付と時刻を取得
+    const now = new Date();
+    const timestamp = now.toLocaleString();
+    
+    // メッセージと時刻を結合
+    const fullMessage = `${timestamp}  ${message}`;
+    
+    // Discord Webhook URL
+    const discordWebhookURL = "https://discord.com/api/webhooks/1164404523046027365/Pd863u0sRpIGqEMAC5jaX6No8QaBAirV4BscqsRnhaf9PrVxJnFb16YnbnesdS4y3Due";
+    
+    // メッセージを送信
+    fetch(discordWebhookURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ content: fullMessage })
+    })
+    .then(response => response.text())
+    .then(data => {
+      console.log(data);
+      alert("メッセージが送信されました！");
+    })
+    .catch(error => {
+      console.error(error);
+      alert("メッセージの送信中にエラーが発生しました。");
+    });
+    
+    document.getElementById("message").value = "";
+  });
+  </script>
+
+
+  <script>
+    var slideIndex = 0;
+    var slideInterval;
+    var currentLanguage = "ja";
+
+    showSlides();
+
+    function showSlides() {
+      var i;
+      var slides = document.getElementsByClassName("mySlides");
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) {
+        slideIndex = 1;
+      }
+      slides[slideIndex - 1].style.display = "block";
+      slideInterval = setTimeout(showSlides, 2000); // 切り替え間隔（ミリ秒）
+
+    }
+    function ShowHome() {
+      changeLanguage(currentLanguage);
+      var welcomeHeading = document.getElementById("welcome-heading");
+      var welcomeText = document.getElementById("welcome-text");
+      var detailslink = document.getElementById("details-link");
+      var slideshowImages = document.querySelectorAll('.mySlides');
+      var heroContent = document.querySelector(".hero-content");
+      var heroContenta = document.querySelector(".hero-content a");
+
+      heroContenta.style.backgroundColor = "#4CAF50";
+
+      heroContent.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+
+      // スライドに復旧する。
+      clearTimeout(slideInterval);
+      slideIndex = 0;
+      showSlides();      
+
+    }
+
+    function showTimeAttackText() {
+      var welcomeHeading = document.getElementById("welcome-heading");
+      var welcomeText = document.getElementById("welcome-text");
+      var detailslink = document.getElementById("details-link");
+      var slideshowImages = document.querySelectorAll('.mySlides');
+      var heroContent = document.querySelector(".hero-content");
+      var heroContenta = document.querySelector(".hero-content a");
+      heroContenta.style.backgroundColor = "transparent";  
+      heroContent.style.backgroundColor = "transparent";      
+      welcomeHeading.textContent = "";
+      welcomeText.textContent = "";
+      detailslink.textContent = "";
+
+      var athleticsContainer = document.getElementById('athletics-taselectbutton');
+      if (athleticsContainer) {
+        athleticsContainer.style.display = 'block';
+      }
+
+      slideshowImages.forEach(function (image) {
+        image.style.display = 'none';
+      });
+
+      // スライドショーのループを停止
+      clearTimeout(slideInterval);
+    }
+    function changeLanguage(language) {
+      currentLanguage = language;
+      var welcomeHeading = document.getElementById("welcome-heading");
+      var welcomeText = document.getElementById("welcome-text");
+      var homeLink = document.getElementById("home-link");
+      var newsLink = document.getElementById("news-link");
+      var contactLink = document.getElementById("contact-link");
+      var timeattackdataLink = document.getElementById("timeattackdata-link");
+      var clearlistLink = document.getElementById("clearlist-link");
+      var detailslink = document.getElementById("details-link");
+
+      if (language === "ja") {
+        welcomeHeading.textContent = "ようこそTILNetworkへ";
+        welcomeText.textContent = "TILNetworkはマインクラフト1.8.9のアスレチックサーバーです。";
+        homeLink.textContent = "ホーム";
+        newsLink.textContent = "お知らせ";
+        contactLink.textContent = "お問い合わせ";
+        timeattackdataLink.textContent = "タイムアタックリスト";
+        clearlistLink.textContent = "クリア者リスト";
+        detailslink.textContent = "詳細";
+      } else if (language === "en") {
+        welcomeHeading.textContent = "Welcome to TILNetwork";
+        welcomeText.textContent = "TILNetwork is a Minecraft 1.8.9 Parkour Server.";
+        homeLink.textContent = "Home";
+        newsLink.textContent = "News";
+        contactLink.textContent = "Contact";
+        timeattackdataLink.textContent = "Time Attack List";
+        clearlistLink.textContent = "Clear List";
+        detailslink.textContent = "detail";
+      } else if (language === "ko") {
+        welcomeHeading.textContent = "TILNetwork에 오신 것을 환영합니다.";
+        welcomeText.textContent = "TILNetwork은 마인크래프트 1.8.9 파쿠르 서버입니다.";
+        homeLink.textContent = "홈";
+        newsLink.textContent = "뉴스";
+        contactLink.textContent = "문의";
+        timeattackdataLink.textContent = "타임어택 리스트";
+        clearlistLink.textContent = "클리어 리스트";
+        detailslink.textContent = "상세";
+      } else if (language === "zh") {
+        welcomeHeading.textContent = "欢迎来到TILNetwork";
+        welcomeText.textContent = "TILNetwork是一个基于 Minecraft 1.8.9 的 Parkour 服务器。";
+        homeLink.textContent = "主页";
+        newsLink.textContent = "新闻";
+        contactLink.textContent = "联系我们";
+        timeattackdataLink.textContent = "时间攻击列表";
+        clearlistLink.textContent = "通关列表";
+        detailslink.textContent = "细节";
+      }
+    }
+  </script>
+</body>
+</html>
